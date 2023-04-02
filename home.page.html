@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      App Logística
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list>
+
+    <ion-radio-group (ionChange)="tipo_envio = $event;">
+      <ion-list-header>Selecione o tipo de envio:</ion-list-header>
+      <ion-item>
+        <ion-label>Regular (5 até 10 dias)</ion-label>
+        <ion-radio value="Regular"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Expresso (2 até 4 dias)</ion-label>
+        <ion-radio value="Expresso"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+
+    <ion-item>
+      <ion-label position="floating">Digite o peso em quilogramas:</ion-label>
+      <ion-input  (ionInput)="getValue($event, 'peso' )" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Digite o distância em quilômetros:</ion-label>
+      <ion-input (ionInput)="getValue($event, 'distancia')"type="number"></ion-input>
+    </ion-item>
+
+
+    <ion-button (click)="Calcular()" expand="block">Calcular</ion-button>
+
+    <ion-item>
+      <ion-label>
+        <h1 color="secondary">Informações da entrega</h1>
+          <p class="ion-text-wrap">Peso: {{ peso === undefined ?  '-' : peso }} kg</p>
+          <p class="ion-text-wrap">Distância: {{ distancia === undefined || distancia === 0?  '-' : distancia }} km</p>
+          <p class="ion-text-wrap">Tipo de envio: {{ tipo_envio?.detail?.value === undefined ?  '-' : tipo_envio?.detail?.value }}</p>
+          <p class="ion-text-wrap">Valor Sem Desconto: R$ {{ valor_final === undefined ?  '-' : valor_final}}</p>
+          <p class="ion-text-wrap">Frete regular demora mais para chegar, porém é mais barato. Frete expresso chega mais rápido, porém é com o valor maior.</p>
+      </ion-label>
+     </ion-item>
+
+    <ion-list-header>Valor total do frete:</ion-list-header>
+    <ion-input>R$ {{ ValorComDesconto === undefined ?  '-' : ValorComDesconto}}</ion-input>
+
+  <ion-list-header>Tabela de desconto:</ion-list-header>
+    <ion-grid>
+      <ion-row>
+        <ion-col>Peso</ion-col>
+        <ion-col>Desconto</ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>10kg a 49kg</ion-col>
+        <ion-col>20% de desconto</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>50kg a 100kg</ion-col>
+        <ion-col>40% de desconto</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+</ion-content>
